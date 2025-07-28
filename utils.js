@@ -18,7 +18,7 @@ export function create_page(name, initFunc=()=>{}){
 }
 
 //INIT LIBRARY
-export function initUtils(start_page){
+export function initUtils(start_page, host=''){
 	window.curent_page = document.createElement('div')
 	window.go = (name) => {
 		import(`./pages/${name}.js`)
@@ -36,5 +36,6 @@ export function initUtils(start_page){
 		document.body.appendChild(window.curent_page)
 	})
 
-	window.go(start_page)
+	const user_req_url = window.location.pathname.split('/').pop()
+	!user_req_url ? window.go(start_page) : window.go(user_req_url)
 }
