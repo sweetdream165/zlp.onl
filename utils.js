@@ -18,10 +18,23 @@ export function create_page(name, initFunc=()=>{}){
 }
 
 //INIT LIBRARY
-window.curent_page = document.createElement('div')
-window.go = (name) => {
-	import(`./pages/${name}.js`)
-	window.curent_page.remove()
-	window.curent_page = document.createElement(`${name}-page`)
-	document.body.appendChild(window.curent_page)
+export function initUtils(start_page){
+	window.curent_page = document.createElement('div')
+	window.go = (name) => {
+		import(`./pages/${name}.js`)
+		window.curent_page.remove()
+		window.curent_page = document.createElement(`${name}-page`)
+		document.body.appendChild(window.curent_page)
+		history.pushState({page:name},null, name)
+	}
+
+	window.addEventListener("popstate", event => {
+		const name = history.state.page
+		import(`./pages/${name}.js`)
+		window.curent_page.remove()
+		window.curent_page = document.createElement(`${name}-page`)
+		document.body.appendChild(window.curent_page)
+	})
+
+	window.go(start_page)
 }
