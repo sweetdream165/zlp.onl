@@ -1,3 +1,3 @@
 import {create_page} from '../utils.js'
 
-create_page('test')
+create_page('play')
