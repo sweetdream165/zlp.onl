@@ -25,6 +25,7 @@ export function initUtils(start_page, host=''){
 		window.curent_page.remove()
 		window.curent_page = document.createElement(`${name}-page`)
 		document.body.appendChild(window.curent_page)
+		//TODO: turn off for page development
 		history.pushState({page:name},null, name)
 	}
 

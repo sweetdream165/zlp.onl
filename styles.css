@@ -11,7 +11,6 @@
 
 body{
 	background-color:#131313;
-	overflow: hidden;
 }
 
 
@@ -20,11 +19,11 @@ body{
 	width: var(--floating-bar-width);
 	height: var(--floating-bar-height);
 
-	position: absolute;
+	position: fixed;
 	top: calc(50% - (var(--floating-bar-height) / 2));
 	right: 10px;
 	
-	background-color:#1A1A1A;
+	background-color:#292929;
 	border-radius: 20px;
 }
 
@@ -35,20 +34,21 @@ body{
 
 .floating-bar::before{
 	content: '';
-	width: var(--floating-bar-width);
-	height: var(--floating-bar-height);
+	width: inherit;
+	height: inherit;
 
 	z-index: -1;
 	position: absolute;
-	right: -4px;
+	right: 4px;
 
-	background-color: #292929;
+	background-color: #1A1A1A;
 	border-radius: 20px;
 }
 
 .beta-bar{
 	height: 30px;
-
+	position: sticky;
+	top: 0px;
 	background-color: #1A1A1A;
 	background-image: url("data:image/svg+xml,%3csvg width='60' xmlns='http://www.w3.org/2000/svg'%3e%3cstyle%3etext{font: 10px sans-serif}%3c/style%3e%3ctext x='0' y='20' fill='%233B3B3B'%3eBETA%3c/text%3e%3c/svg%3e");
 	animation-duration: 2s;
@@ -71,7 +71,55 @@ body{
 .bg-letters{
 	z-index: -999;
 	position: absolute;
-
+	user-select: none;
 	width: 100vw;
 	height: 100vh;
+}
+
+
+/*TODO: MOVE TO SEPARATE FILE FOR PAGE*/
+.home-text::before{
+	content: 'ZLP.ONL';
+	color: #292929;
+	position: absolute;
+	z-index: -1;
+	margin-top: 10px;
+}
+
+.news-cmp::before{
+	content: '';
+	background-color: #292929;
+	position: absolute;
+	z-index: -1;
+	width: inherit;
+	height: inherit;
+	border-radius: inherit;
+	margin-top: -5px;
+}
+
+.mine-cube::before{
+	content: '';
+	/*background-color: red;*/
+	position: absolute;
+	z-index: -2;
+	width: inherit;
+	height: inherit;
+	padding: 500px;
+	margin: -500px;
+	background-image: radial-gradient(circle,rgba(42, 123, 155, 0.79) 0%, rgba(87, 199, 133, 0.7) 10%, rgba(237, 221, 83, 0) 60%);
+	animation-duration: 4s;
+	animation-name: gradientAnim;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: linear;
+}
+
+@keyframes gradientAnim {
+  from {
+    opacity: 100%;
+  }
+
+  to {
+    opacity: 0%;
+  }
 }
