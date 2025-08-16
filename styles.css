@@ -1,6 +1,7 @@
 :root{
 	--floating-bar-width: 70px;
-	--floating-bar-height: 290px;
+	--floating-bar-height: 200px;
+	--bubble-bgcolor: #33afed;
 }
 
 *{
@@ -10,19 +11,24 @@
 }
 
 body{
+	overflow-x: hidden;
 	background-color:#131313;
 }
 
 
-/*BARS*/
+/*FLOATING_BAR*/
 .floating-bar{
+	position: fixed;
+	z-index: 999;
+	top: calc(50% - (var(--floating-bar-height) / 2));
+	right: 20px;
 	width: var(--floating-bar-width);
 	height: var(--floating-bar-height);
-
-	position: fixed;
-	top: calc(50% - (var(--floating-bar-height) / 2));
-	right: 10px;
 	
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
 	background-color:#292929;
 	border-radius: 20px;
 }
@@ -32,25 +38,41 @@ body{
 	fill: white;
 }
 
+.floating-bar a{
+	display: flex;	
+	justify-content: center;
+	padding-right: 5px;
+}
+
+.floating-bar svg{
+	width: 45px;
+	height: 45px;
+}
+
 .floating-bar::before{
 	content: '';
+
+	position: absolute;
+	z-index: -1;
+	right: 4px;
 	width: inherit;
 	height: inherit;
-
-	z-index: -1;
-	position: absolute;
-	right: 4px;
 
 	background-color: #1A1A1A;
 	border-radius: 20px;
 }
 
+
+/*BETA_BAR*/
 .beta-bar{
-	height: 30px;
 	position: sticky;
+	z-index: 1;
 	top: 0px;
+	height: 30px;
+
 	background-color: #1A1A1A;
 	background-image: url("data:image/svg+xml,%3csvg width='60' xmlns='http://www.w3.org/2000/svg'%3e%3cstyle%3etext{font: 10px sans-serif}%3c/style%3e%3ctext x='0' y='20' fill='%233B3B3B'%3eBETA%3c/text%3e%3c/svg%3e");
+	
 	animation-duration: 2s;
 	animation-name: betaBarAnim;
 	animation-iteration-count: infinite;
@@ -67,46 +89,71 @@ body{
   }
 }
 
+
 /*BACKGROUND_LETERS*/
 .bg-letters{
-	z-index: -999;
 	position: absolute;
-	user-select: none;
+	z-index: -999;
 	width: 100vw;
 	height: 100vh;
+	user-select: none;
 }
 
 
-/*TODO: MOVE TO SEPARATE FILE FOR PAGE*/
+/*TODO: MOVE TO SEPARATE FILE FOR EACH PAGE*/
 .home-text::before{
 	content: 'ZLP.ONL';
-	color: #292929;
 	position: absolute;
 	z-index: -1;
-	margin-top: 10px;
+	margin-top: 19px;
+	color: #354a26;
+	text-shadow: -5px -1px 0 #1a1a1a, 5px -1px 0 #1a1a1a, -5px 1px 0 #1a1a1a, 5px 1px 0 #1a1a1a;
+}
+
+.home-text2::before{
+	content: 'SEASON2';
+	position: absolute;
+	z-index: -2;
+	margin-top: -19px;
+	color: #503b32;
+	text-shadow: -5px -1px 0 #1a1a1a, 5px -1px 0 #1a1a1a, -5px 1px 0 #1a1a1a, 5px 1px 0 #1a1a1a;
 }
 
 .news-cmp::before{
 	content: '';
-	background-color: #292929;
 	position: absolute;
 	z-index: -1;
-	width: inherit;
+	width: 100%;
 	height: inherit;
+	margin-top: 5px;
+	
+	background-color: #1A1A1A;
 	border-radius: inherit;
-	margin-top: -5px;
+}
+
+.mine-cube{
+	transform: translateY(0px);
+	transform: translateX(0px);
+	z-index: -999;
+
+	animation-duration: 2s;
+	animation-name: cubeAnim;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-timing-function: ease-in-out;
 }
 
 .mine-cube::before{
 	content: '';
-	/*background-color: red;*/
 	position: absolute;
-	z-index: -2;
+	z-index: -999;
 	width: inherit;
 	height: inherit;
 	padding: 500px;
 	margin: -500px;
-	background-image: radial-gradient(circle,rgba(42, 123, 155, 0.79) 0%, rgba(87, 199, 133, 0.7) 10%, rgba(237, 221, 83, 0) 60%);
+
+	/*background-image: radial-gradient(circle,rgba(42, 123, 155, 0.79) 0%, rgba(87, 199, 133, 0.7) 10%, rgba(237, 221, 83, 0) 60%);*/
+	
 	animation-duration: 4s;
 	animation-name: gradientAnim;
 	animation-iteration-count: infinite;
@@ -121,5 +168,16 @@ body{
 
   to {
     opacity: 0%;
+  }
+}
+
+
+@keyframes cubeAnim {
+  from {
+ 		transform: translateY(0px);
+  }
+
+  to {
+    transform: translateY(-30px);
   }
 }
