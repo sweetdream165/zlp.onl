@@ -11,6 +11,7 @@ export function create_page(name, initFunc=()=>{}){
 		connectedCallback(){
 			fetchAndLoadPage(this, name)
 			initFunc()
+			this.className = `${name}-page`
 		}
 	}
 	

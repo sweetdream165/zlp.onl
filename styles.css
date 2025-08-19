@@ -1,7 +1,9 @@
 :root{
 	--floating-bar-width: 70px;
 	--floating-bar-height: 200px;
-	--bubble-bgcolor: #33afed;
+	--floating-bar-icon-width: 45px;
+	--floating-bar-icon-height: 45px;
+	--floating-bar-icon-padding: 0px;
 }
 
 *{
@@ -45,8 +47,9 @@ body{
 }
 
 .floating-bar svg{
-	width: 45px;
-	height: 45px;
+	padding-top: var(--floating-bar-icon-padding);
+	width: var(--floating-bar-icon-width);
+	height: var(--floating-bar-icon-height);
 }
 
 .floating-bar::before{
@@ -101,83 +104,79 @@ body{
 
 
 /*TODO: MOVE TO SEPARATE FILE FOR EACH PAGE*/
-.home-text::before{
-	content: 'ZLP.ONL';
+home-page{
+	display: inline-block;
 	position: absolute;
-	z-index: -1;
-	margin-top: 19px;
-	color: #354a26;
-	text-shadow: -5px -1px 0 #1a1a1a, 5px -1px 0 #1a1a1a, -5px 1px 0 #1a1a1a, 5px 1px 0 #1a1a1a;
-}
-
-.home-text2::before{
-	content: 'SEASON2';
-	position: absolute;
-	z-index: -2;
-	margin-top: -19px;
-	color: #503b32;
-	text-shadow: -5px -1px 0 #1a1a1a, 5px -1px 0 #1a1a1a, -5px 1px 0 #1a1a1a, 5px 1px 0 #1a1a1a;
-}
-
-.news-cmp::before{
-	content: '';
-	position: absolute;
-	z-index: -1;
+	top: 50%;
+	transform: translateY(-50%);
 	width: 100%;
-	height: inherit;
-	margin-top: 5px;
-	
-	background-color: #1A1A1A;
-	border-radius: inherit;
+
+	overflow: visible;
 }
 
-.mine-cube{
-	transform: translateY(0px);
-	transform: translateX(0px);
-	z-index: -999;
+home-page .news{
+	display: flex;
+	flex-wrap: wrap;
+	width: 25%; height: 70vh;
+	min-width: 300px;
 
-	animation-duration: 2s;
-	animation-name: cubeAnim;
+	background-color: #1a1a1a;
+	border-radius: 20px;
+	overflow: scroll;
+	padding: 20px;
+	row-gap: 20px;
+
+	box-shadow: 5px 0px 0px 0px #292929, 0px 0px 0px 0px #588157;
+	animation-duration: 5s;
+	animation-name: newsGlowAnim;
 	animation-iteration-count: infinite;
-	animation-direction: alternate;
 	animation-timing-function: ease-in-out;
-}
-
-.mine-cube::before{
-	content: '';
-	position: absolute;
-	z-index: -999;
-	width: inherit;
-	height: inherit;
-	padding: 500px;
-	margin: -500px;
-
-	/*background-image: radial-gradient(circle,rgba(42, 123, 155, 0.79) 0%, rgba(87, 199, 133, 0.7) 10%, rgba(237, 221, 83, 0) 60%);*/
-	
-	animation-duration: 4s;
-	animation-name: gradientAnim;
-	animation-iteration-count: infinite;
 	animation-direction: alternate;
-	animation-timing-function: linear;
 }
 
-@keyframes gradientAnim {
-  from {
-    opacity: 100%;
-  }
+home-page .wrapper{
+  	display: flex;
+  	flex-direction: row;
+  	row-gap: 100px;
+  	column-gap: 100px;
+  	text-align: center;
+  	align-items: center;
+  	justify-content: center;
+}
 
-  to {
-    opacity: 0%;
+@keyframes newsGlowAnim {
+  0% { 
+		box-shadow: 5px 0px 0px 0px #292929, 0px 0px 100px -40px #588157;
+  }
+  100% { 
+		box-shadow: 5px 0px 0px 0px #292929, 30px 20px 100px -40px #588157;
   }
 }
 
+@media only screen and (max-width: 1300px) {
+	home-page{
+		top: revert;
+		transform: revert;
+	}
 
-@keyframes cubeAnim {
-  from {
- 		transform: translateY(0px);
+  home-page .wrapper{
+  	flex-direction: column-reverse;
   }
 
-  to {
-    transform: translateY(-30px);
+  .floating-bar{
+  	top: revert;
+  	right: revert;
+  	bottom: 20px;
+  	left: 50%;
+  	transform: translateX(-50%);
+  	flex-direction: row;
   }
+
+  :root{
+		--floating-bar-width: 250px;
+		--floating-bar-height: 80px;
+		--floating-bar-icon-width: 60px;
+		--floating-bar-icon-height: 60px;
+		--floating-bar-icon-padding: 10px;
+	}
 }
