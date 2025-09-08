@@ -1,6 +1,7 @@
 console.log('just here')
 
-//DEFAULT FUNCTION FOR ANY ITEM OF $
+//:::$ IS THE WAY TO COMMUNICATE WITH JUST.JS:::
+//:::IT WILL BE DECLARED IN EXPORT SECTION___:::
 let elName = ''
 let dollar = {};
 const handler = {
@@ -10,24 +11,60 @@ const handler = {
   }
 };
 
-function createElement(elementPropertys) {
+//:::FUCNTIONS THAT HANDLES ELEMENT CREATION AND PUTS IT TO THE RIGHT PLACE IN DOM:::
+function createElement(elementPropertys, events = '') {
   const element = document.createElement(elName)
 
+  //+add styles+
   for (const [key, value] of Object.entries(elementPropertys)) {
     element[key] = value
+  }
+  Object.assign(element.style, elementPropertys)
+
+  //+add events+
+  for (const [key, value] of Object.entries(events)) {
+    element.addEventListener(key, ()=>{
+      value()
+    })
+  }
+
+  //+add/append child elements+
+  element.ADD = appendElement
+  function appendElement(...elements) {
+    elements.forEach((el)=>{
+      if(Array.isArray(el)){
+        this.append(...el)
+        return
+      }
+      this.append(el)
+    })
+    return this
   }
 
   document.body.append(element)
   return element
 }
 
-Object.prototype.ADD = appendElement
-function appendElement(...elements) {
-  elements.forEach((el)=>{
-    this.append(el)
+function bindStyleToClass(cls, stl){
+  const elements = document.querySelectorAll(cls)
+  elements.forEach(el=>{
+    Object.assign(el.style, new stl())
   })
-  return this
 }
 
-
+//:::EXPORTS:::
 export const $ = new Proxy(dollar, handler);
+
+window.go = (page)=>{
+  const cnt = document.querySelector($.RouteIn)
+  cnt.innerHTML = ''
+  import(`./pages/${page}.js`).then((fn)=>{
+    fn[page]().forEach((el)=>{
+      cnt.append(el)  
+    })
+  })
+}
+
+//:::DEF CONFIG:::
+$.RouteIn = 'body'
+$.bindStyle = bindStyleToClass

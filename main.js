@@ -1,13 +1,18 @@
-import {$} from './just.js' 
+import {$} from './just.js' // +import library
+import * as cmp from './components/common.js' // + import components
+import * as stl from './styles.js' // + import styles
 
 (function Main() {
-	$['div']({style: 'background-color: green', className: 'zalupa'}).ADD(
-		$['div']({style: 'top: 30px;', style: 'background-color: yellow'}).ADD(
-			$['a']({href: 'https://www.google.com', innerHTML: 'google'})
-		),
-		$['button']({style: 'top: 80px;', innerHTML: 'llll'})
+	//:::CONFIG:::
+	$.RouteIn = '.content'
 
-	)
-	$['a']({style: 'top:70px; position: absolute; background-color: red', className: 'zaza', innerHTML: "EBANA krwa"})
+	//:::LAYOUT:::
+	cmp.navBar()
+	cmp.content()
 
+	//:::BIND_STYLES:::
+	$.bindStyle('.pagelink', stl.pageLinkStl)
+
+	//:::ROUTE_TO_HOME_PAGE:::
+	go('home');
 })()
