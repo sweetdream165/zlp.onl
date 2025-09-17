@@ -67,7 +67,7 @@ window.go = (page, updateURL = $.updateURL)=>{
 }
 
 window.startPage = (page, i)=>{
-  $.pathLVL[i] ? go($pathLVL[i]) : go(page)
+  $.pathLVL[i] ? go($.pathLVL[i]) : go(page)
 }
 
 //:::DEF CONFIG:::
