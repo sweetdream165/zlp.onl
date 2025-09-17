@@ -62,7 +62,8 @@ window.go = (page, updateURL = $.updateURL)=>{
       cnt.append(el)  
     })
   })
-  if(updateURL) history.pushState(page, "", page);
+  if(updateURL) history.state ? history.pushState(page, "", page) : history.replaceState(page, "", page)
+  $.pathLVL = location.pathname.split('/').splice(1)
 }
 
 //:::DEF CONFIG:::
@@ -70,6 +71,8 @@ $.RouteIn = 'body'
 $.bindStyle = bindStyleToClass
 $.pagesDir = 'pages'
 $.updateURL = true
+$.pathLVL = location.pathname.split('/').splice(1)
+
 //:::INIT STUFF:::
 //+just stylesheet+
 const justStyle = document.createElement("style");
