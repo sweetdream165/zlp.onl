@@ -5,8 +5,7 @@ import * as stl from './styles/styles.js' // + import styles
 (function Main() {
 	//:::CONFIG:::
 	$.RouteIn = '.content'
-	$.pathLVL[0] = 'home'
-	$.updateURL = true 
+	$.updateURL = true
 
 	//:::LAYOUT:::
 	cmp.navBar()
@@ -15,6 +14,5 @@ import * as stl from './styles/styles.js' // + import styles
 	//:::BIND_STYLES:::
 	$.bindStyle('.pagelink', stl.pageLinkStl)
 
-	//:::ROUTE_TO_HOME_PAGE:::
-	go($.pathLVL[0]);
+	startPage('home', 1)
 })()

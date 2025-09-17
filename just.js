@@ -66,6 +66,10 @@ window.go = (page, updateURL = $.updateURL)=>{
   $.pathLVL = location.pathname.split('/').splice(1)
 }
 
+window.startPage = (page, i)=>{
+  $.pathLVL[i] ? go($pathLVL[i]) : go(page)
+}
+
 //:::DEF CONFIG:::
 $.RouteIn = 'body'
 $.bindStyle = bindStyleToClass
