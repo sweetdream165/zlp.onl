@@ -5,14 +5,14 @@ console.log('just here')
 let elName = ''
 let dollar = {};
 const handler = {
-  get: function(target, name) {
+    get: function(target, name) {
     elName = name
     return target.hasOwnProperty(name) ? target[name] : createElement;
   }
 };
 
 //:::FUCNTIONS THAT HANDLES ELEMENT CREATION AND PUTS IT TO THE RIGHT PLACE IN DOM:::
-function createElement(elementPropertys, events = '') {
+function createElement(elementPropertys = {}, events = '') {
   const element = document.createElement(elName)
 
   //+add styles+
@@ -46,25 +46,36 @@ function createElement(elementPropertys, events = '') {
 }
 
 function bindStyleToClass(cls, stl){
-  const elements = document.querySelectorAll(cls)
-  elements.forEach(el=>{
-    Object.assign(el.style, new stl())
-  })
+  const tempEl = document.createElement('temp')
+  Object.assign(tempEl.style, new stl())
+  justSheet.insertRule(`${cls}{${tempEl.style.cssText}}`)
 }
 
 //:::EXPORTS:::
 export const $ = new Proxy(dollar, handler);
 
-window.go = (page)=>{
+window.go = (page, updateURL = $.updateURL)=>{
   const cnt = document.querySelector($.RouteIn)
   cnt.innerHTML = ''
-  import(`./pages/${page}.js`).then((fn)=>{
+  import(`./${$.pagesDir}/${page}.js`).then((fn)=>{
     fn[page]().forEach((el)=>{
       cnt.append(el)  
     })
   })
+  if(updateURL) history.pushState(page, "", page);
 }
 
 //:::DEF CONFIG:::
 $.RouteIn = 'body'
 $.bindStyle = bindStyleToClass
+$.pagesDir = 'pages'
+$.updateURL = true
+//:::INIT STUFF:::
+//+just stylesheet+
+const justStyle = document.createElement("style");
+document.head.appendChild(justStyle);
+const justSheet = justStyle.sheet;
+//+event listeners+
+window.addEventListener("popstate", e => {
+  go(e.state, false)
+})
