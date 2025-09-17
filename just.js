@@ -62,7 +62,7 @@ window.go = (page, updateURL = $.updateURL)=>{
       cnt.append(el)  
     })
   })
-  if(updateURL) history.state ? history.pushState(page, "", page) : history.replaceState(page, "", page)
+  if(updateURL) history.state && history.length >= 2 ? history.pushState(page, "", page) : history.replaceState(page, "", page)
   $.pathLVL = location.pathname.split('/').splice(1)
 }
 
